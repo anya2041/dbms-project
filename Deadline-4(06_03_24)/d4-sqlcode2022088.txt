@@ -1,0 +1,69 @@
+/*------------------------10 SQL QUERIES WITH THEIR RAE(By Anya Hooda 2022088)-------------------------------------------------*/
+
+
+/*1. To select users by location and city*/
+SELECT * FROM users WHERE add_pin = '30301' AND add_city = 'Atlanta';
+/*RAE : σ add_pin='30301' ∧ add_city='Atlanta' (users) */
+
+
+/*2. Update the quantity of a specific product with a given prod_id*/
+UPDATE product SET quantity = 52 WHERE prod_id = 3; 
+/* RAE: product{quantity} ← π quantity (σ prod_id=3 (product)) */
+
+/*3.Retrieve the username and email of users who have not made any purchases */
+SELECT username, email FROM users
+WHERE user_id NOT IN (SELECT DISTINCT user_id FROM ord_invoice);
+/* RAE: π username, email (users - π user_id (ord_invoice)) */
+
+/*4. Retrieve all products with a price greater than the average price */ 
+SELECT * FROM product
+WHERE price > (SELECT AVG(price) FROM product);
+/* RAE: σ price > avg_price (product) */
+
+/* 5. Retrieve the names and quantities of products ordered by a specific user */
+SELECT p.prod_name, oi.quantity
+FROM ord_invoice oi
+INNER JOIN product p ON oi.prod_id = p.prod_id
+WHERE oi.user_id = 3;
+/* RAE: π prod_name, quantity ((ord_invoice ⨝ prod_id=product.prod_id) ⨝_s user_id=3) */
+
+/*6.List all products along with their respective categories, sorted by category name */
+SELECT p.prod_name, c.category_name
+FROM product p
+INNER JOIN category c ON p.category_id = c.category_id
+ORDER BY c.category_name;
+/* RAE: π prod_name, category_name ((product ⨝ category_id=category.category_id) ⨝_o category_name) */
+
+/* 7.Counting the number of users in each city */
+SELECT add_city, COUNT(*) AS num_users FROM users
+GROUP BY add_city;
+/* RAE: ρ UsersCountByCity (π add_city, COUNT(*) AS num_users (users))_grouped */
+
+/* 8.Selecting products with a discount percentage above 10% */
+SELECT * FROM product
+WHERE discount > 10;
+/* RAE: ρ DiscountedProducts (σ discount > 10 (product)) */
+
+/* 9.Selecting users who have purchased products with a specific brand*/
+SELECT DISTINCT u.*
+FROM users u
+JOIN ord_invoice oi ON u.user_id = oi.user_id
+JOIN product p ON oi.prod_id = p.prod_id
+WHERE p.brand = 'Samsung';
+/* RAE: ρ SamsungBuyers (π * (users ⨝ (σ brand = 'Samsung' (product)) ⨝ ord_invoice)) */
+
+/* 10. Selecting users who have made purchases but have not reviewed any products */
+SELECT *
+FROM users
+WHERE user_id IN (
+    SELECT DISTINCT user_id
+    FROM ord_invoice
+    WHERE user_id NOT IN (
+        SELECT DISTINCT user_id
+        FROM review
+    )
+);
+/* RAE : ρ UsersNoReviews (π * (users ⨝ (ord_invoice - π user_id (review)))) */
+
+
+/*------------------------------------------------------END OF DOCUMENT----------------------------------------------------------------*/
