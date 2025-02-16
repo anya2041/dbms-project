@@ -1,0 +1,3 @@
+Please read the below instructions very carefully:
+You are required to submit a pdf describing the project scope for the business requirements of an online store. Examples are given in the week 1 lecture slides i.e. Covid Vaccine Management System and Sangeet Talents Management System. Online store needs to be a B2C application e.g. blinkit, insurance management, music store, book store etc. These groups will remain same throughout the course.
+In all the project deadlines, you should write project contribution of all the individuals and every member should be aware of the entire project work. TAs will grade each group member individually. 
