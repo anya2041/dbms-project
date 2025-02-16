@@ -1,0 +1,29 @@
+Transactions :
+
+Non-Conflicting Transactions:
+
+Insert a New User:
+INSERT INTO users (username, email) VALUES ('JohnDoe', 'john@example.com');
+
+Update User Email:
+UPDATE users SET email = 'newemail@example.com' WHERE username = 'JohnDoe';
+
+Delete a Product:
+DELETE FROM products WHERE product_id = 13;
+
+Insert a New Order:
+INSERT INTO orders (user_id, product_id, quantity) VALUES (1, 4, 2);
+
+Conflicting Transactions:
+
+Update User Email (Conflict):
+-- Assume two users are trying to update the email address of user 'JohnDoe' simultaneously.
+-- Simulate a conflict by not using any locking mechanism.
+-- Each user executes the update query independently.
+UPDATE users SET email = 'anotheremail@example.com' WHERE username = 'JohnDoe';
+
+Insert the Same Product (Conflict):
+-- Assume two users are trying to insert the same product simultaneously.
+-- Simulate a conflict by not using any locking mechanism.
+-- Each user executes the insert query independently.
+INSERT INTO products (product_id, name, price) VALUES (789, 'Product XYZ', 29.99);
