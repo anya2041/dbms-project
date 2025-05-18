@@ -3,6 +3,7 @@
 ## A Robust Database Management System for an E-commerce Platform Specializing in Electronics
 
 This project is a comprehensive database management system designed for an online electronics retail store. It efficiently manages customer information, inventory, sales, financial data, and statistical insights.
+Design: https://bandwidthestore.framer.website/
 
 ## Features
 
